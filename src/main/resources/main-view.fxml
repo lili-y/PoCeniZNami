@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="rootPane" fx:controller="org.example.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+
+<top>
+      <VBox fx:id="vbox" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar fx:id="menu">
+              <menus>
+                <Menu text="_Datoteka">
+                  <items>
+                    <MenuItem onAction="#odpriFile" text="_Odpri" />
+                        <MenuItem onAction="#shraniFile" text="_Shrani" />
+                        <MenuItem onAction="#exit" text="_Izhod" />
+                  </items>
+                </Menu>
+                <Menu text="_Uredi">
+                  <items>
+                    <MenuItem onAction="#pobrisiVse" text="_Pobriši" />
+                  </items>
+                </Menu>
+                <Menu text="_Pomoč">
+                  <items>
+                    <MenuItem onAction="#avtorPodatki" text="_Avtor" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar fx:id="toolbar" prefHeight="40.0" prefWidth="600.0">
+              <items>
+                  <Separator layoutX="61.0" layoutY="10.0" orientation="VERTICAL" visible="false" />
+                <Button fx:id="gumb" mnemonicParsing="false" onAction="#odpriFile" text="Odpri">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Separator orientation="VERTICAL" visible="false" />
+                  <Button fx:id="gumb" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#shraniFile" text="Shrani">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Separator layoutX="61.0" layoutY="10.0" orientation="VERTICAL" visible="false" />
+                  <Button fx:id="gumb" layoutX="66.0" layoutY="13.0" mnemonicParsing="false" onAction="#exit" text="Izhod">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Separator layoutX="125.0" layoutY="10.0" orientation="VERTICAL" visible="false" />
+                  <Button fx:id="gumb" layoutX="115.0" layoutY="13.0" mnemonicParsing="false" onAction="#pobrisiVse" text="Pobriši">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+              </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <HBox fx:id="hbox" alignment="CENTER_RIGHT" style="-fx-background-color: lightgray;">
+         <children>
+            <Label fx:id="statusLabel" text="Status">
+               <HBox.margin>
+                  <Insets left="7.0" />
+               </HBox.margin></Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="gumbMode" alignment="CENTER_RIGHT" contentDisplay="RIGHT" lineSpacing="20.0" minHeight="10.0" mnemonicParsing="false" onAction="#teamOkna" prefHeight="25.0" text="Tema" HBox.hgrow="ALWAYS">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets bottom="4.0" right="7.0" top="3.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+       <Accordion fx:id="accordion" BorderPane.alignment="CENTER" expandedPane="$pretvornik">
+           <panes>
+          <TitledPane fx:id="pretvornik" animated="false" text="Pretvornik">
+            <content>
+              <AnchorPane fx:id="anc" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane alignment="CENTER" layoutX="40.0" layoutY="40.0" prefHeight="170.0" prefWidth="495.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="85.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="85.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="85.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="85.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.33334350585938" minWidth="10.0" prefWidth="179.33334350585938" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <TextField fx:id="vnosVrednosti" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="401.0" GridPane.columnSpan="5" GridPane.halignment="RIGHT">
+                                 <GridPane.margin>
+                                    <Insets right="11.0" />
+                                 </GridPane.margin></TextField>
+                              <ComboBox fx:id="tipPretvorbe" onAction="#izbiraKategorije" prefWidth="150.0" promptText="Kategorija pretvorbe" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="pretvoriIz" prefWidth="150.0" promptText="Izvorna enota" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="pretvoriV" prefWidth="150.0" promptText="Ciljna enota" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                              <Button mnemonicParsing="false" onAction="#pretvori" prefHeight="25.0" prefWidth="240.0" text="Pretvori" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <GridPane.margin>
+                                    <Insets left="3.0" />
+                                 </GridPane.margin></Button>
+                              <Button alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="7" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#addNumber" prefHeight="25.0" prefWidth="75.0" text="8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="9" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="155.0" text="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button mnemonicParsing="false" onAction="#addNumber" prefWidth="75.0" text="." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button layoutX="173.0" layoutY="49.0" mnemonicParsing="false" onAction="#zbrisi" prefWidth="75.0" text="⌫" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button layoutX="253.0" layoutY="49.0" mnemonicParsing="false" onAction="#počistiVse" prefWidth="75.0" text="Clear" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Zgodovina pretvorb">
+            <content>
+              <AnchorPane fx:id="anc2">
+                     <children>
+                        <TextArea fx:id="zgodovinaPretvorb" layoutX="46.0" layoutY="23.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Dnevnik dogodkov">
+            <content>
+              <AnchorPane fx:id="anchorpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="dnevnikDogodkov" layoutX="59.0" layoutY="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+   </center>
+</BorderPane>
