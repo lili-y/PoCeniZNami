@@ -126,7 +126,6 @@ public class MainController {
         if (imeKartica.getText().isEmpty()) return false;
         if (steKartica.getText().isEmpty()) return false;
         if (ccv.getText().isEmpty()) return false;
-        // todo
         if (nastavitev.getSelectedToggle() == null) return false;
         if (getPrevoz().isEmpty()) return false;
         if (spinner3.getValue() == 0) return false;
