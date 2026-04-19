@@ -1,0 +1,17 @@
+REZERVACIJA
+
+Nosilec rezervacije:
+? ? (Nem?ija)
+
+Potovanje:
+Destinacija: Slovenija, 
+Termin: 2026-04-09 - 2026-04-22
+Nastanitev: Apartma
+Prevoz: Avtobus
+
+Udeleženci:
+? ?
+Rojstvo: 2026-04-08
+Kategorija: Otrok (do 7)
+
+Dodatno: Klima
