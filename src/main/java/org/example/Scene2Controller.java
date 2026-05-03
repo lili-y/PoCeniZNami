@@ -24,7 +24,6 @@ public class Scene2Controller {
     @FXML private RadioButton posebejAvto;
     @FXML private DatePicker datumNajema;
     @FXML private TextField telefonska;
-    // ================= PERSONAL DATA =================
     @FXML private TextField ime;
     @FXML private TextField priimek;
     @FXML private DatePicker datumRojstva;
@@ -41,7 +40,6 @@ public class Scene2Controller {
     @FXML private TextField steDokumenta;
     @FXML private TextField zdravStevilka;
 
-    // ================= CAR RENTAL =================
     @FXML private ComboBox<String> razredVozila;
     @FXML private Spinner<Integer> steDniNajema;
     @FXML private Label cenaNajemAvto;
@@ -52,22 +50,20 @@ public class Scene2Controller {
 
     private int cenaNaDan = 20;
 
-    // ================= PAYMENT =================
+
     @FXML private TextField imeKartica;
     @FXML private TextField steKartica;
     @FXML private PasswordField ccv;
 
-    // ================= OUTPUT =================
+
     @FXML private TextArea vsiUdelezenci;
     @FXML private Label statusVrstica;
 
-    // ================= INIT =================
 
 
     @FXML private TextField drzavljanstvo;
     @FXML private DatePicker rekVelj;
 
-    // ================= POTNIK 2 =================
     @FXML private TextField ime1, priimek1, naslov1, postna1, kraj1;
     @FXML private DatePicker datumRojstva1;
     @FXML private ComboBox<String> izberiDrzavo21, spol1, tipDokumenta1;
@@ -227,7 +223,6 @@ public class Scene2Controller {
         clearErrorOnFocus(postna);
         clearErrorOnFocus(naslov);
         clearErrorOnFocus(drzavljanstvo);
-        // ===== POTNIK 1 - OSNOVNI PODATKI =====
 
 // ime + priimek
         validateText(ime, t -> !t.trim().isEmpty());
@@ -249,7 +244,7 @@ public class Scene2Controller {
 
         validateText(emailField, t -> preveriEmail());
         validateText(zdravStevilka, t -> preveriZdravstveno());
-        // ===== POTNIK 2 VALIDACIJA =====
+
         tipDokumenta1.valueProperty().addListener((obs, oldVal, newVal) -> {
 
             if (newVal == null) return;
@@ -296,7 +291,6 @@ public class Scene2Controller {
         validateCombo(spol1);
         validateCombo(tipDokumenta1);
 
-        ////////
 
         avtoPodatki.setDisable(!najemAvta.isSelected());
         avtoPodatki.setOpacity(najemAvta.isSelected() ? 1 : 0.5);
@@ -406,7 +400,6 @@ public class Scene2Controller {
 
 
 
-    // ================= PRICE =================
     private void updateCena() {
         if (razredVozila.getValue() == null || steDniNajema.getValue() == null) return;
 
@@ -420,7 +413,6 @@ public class Scene2Controller {
         cenaNajemAvto.setText(total + " €");
     }
 
-    // ================= VALIDATION =================
     private boolean preveriTelefon() {
         String tel = telefonska.getText().replaceAll("\\s+", "");
         if (izberiDrzavo2.getValue() == null) return false;
@@ -559,14 +551,12 @@ public class Scene2Controller {
         return true; // (ni več v uporabi v tej verziji)
     }
 
-    // ================= TEXT BUILD =================
     private String sestaviBesedilo() {
 
         StringBuilder sb = new StringBuilder();
 
         sb.append("REZERVACIJA\n\n");
 
-        // ================= LET =================
         sb.append("TIP LETA: ").append(tipL).append("\n");
         sb.append("DATUM ODHODA: ").append(datum).append("\n");
 
@@ -577,7 +567,6 @@ public class Scene2Controller {
         sb.append("ŠTEVILO POTNIKOV: ").append(steviloPotnikov).append("\n");
         sb.append("RAZRED: ").append(razred).append("\n\n");
 
-        // ================= SEDEŽI + PRTLJAGA =================
         sb.append("IZBRANI SEDEŽI: ")
                 .append(choosenSeats != null ? String.join(", ", choosenSeats) : "Ni izbranih")
                 .append("\n");
@@ -594,7 +583,7 @@ public class Scene2Controller {
 
         sb.append("\n\n");
 
-        // ================= CENA =================
+
         if (najemPlaciloLetalo) {
             double popust = sumCena * 0.15;
             double koncna = sumCena - popust;
@@ -605,7 +594,6 @@ public class Scene2Controller {
             sb.append("SKUPNA KONČNA CENA: ").append(sumCena).append(" €\n\n");
         }
 
-        // ================= POTNIK 1 =================
         sb.append("PODATKI O POTNIKU 1\n\n");
 
         sb.append("Ime in priimek: ").append(ime.getText()).append(" ").append(priimek.getText()).append("\n");
@@ -632,7 +620,6 @@ public class Scene2Controller {
             sb.append("POSEBNE ZAHTEVE: ").append(vsiUdelezenci.getText()).append("\n\n");
         }
 
-        // ================= POTNIK 2 =================
         if (jeDvaPotnika()) {
             sb.append("PODATKI O POTNIKU 2\n\n");
 
@@ -660,7 +647,6 @@ public class Scene2Controller {
             }
         }
 
-        // ================= VOZILO =================
         if (najemAvta.isSelected()) {
             sb.append("VOZILO\n\n");
             sb.append("Čas izposoje: ").append(steDniNajema.getValue()).append(" dni\n");
@@ -674,7 +660,6 @@ public class Scene2Controller {
         return sb.toString();
     }
 
-    // ================= ACTIONS =================
 
     private void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -714,7 +699,7 @@ public class Scene2Controller {
     private void oznaciNapake() {
         String error = "-fx-border-color: red; -fx-border-width: 2px;";
 
-        // ===== PRAZNA POLJA =====
+
         if (ime.getText().isEmpty()) ime.setStyle(error);
         if (priimek.getText().isEmpty()) priimek.setStyle(error);
         if (telefonska.getText().isEmpty()) telefonska.setStyle(error);
@@ -773,7 +758,6 @@ public class Scene2Controller {
         if (tipDokumenta.getValue() == null)
             tipDokumenta.setStyle(error);
 
-        // ===== FORMAT (SAMO ČE NI PRAZNO) =====
         if (!telefonska.getText().isEmpty() && !preveriTelefon()) {
             telefonska.setStyle(error);
         }
@@ -792,7 +776,7 @@ public class Scene2Controller {
         }
 
 
-// ===== POTNIK 2 PRAZNO =====
+
         if (ime1.getText().isEmpty()) ime1.setStyle(error);
         if (priimek1.getText().isEmpty()) priimek1.setStyle(error);
         if (telefonska1.getText().isEmpty()) telefonska1.setStyle(error);
@@ -831,7 +815,7 @@ public class Scene2Controller {
         if (tipDokumenta1.getValue() == null)
             tipDokumenta1.setStyle(error);
 
-// ===== FORMAT =====
+
         if (!telefonska1.getText().isEmpty() && !preveriTelefon1())
             telefonska1.setStyle(error);
 
@@ -858,7 +842,6 @@ public class Scene2Controller {
 
         boolean najem = najemAvta.isSelected();
 
-        // ===== VALIDACIJA NAJEMA =====
         if (najem) {
             boolean carValid =
                     datumNajema.getValue() != null &&
@@ -872,14 +855,12 @@ public class Scene2Controller {
             }
         }
 
-        // ===== OSNOVNA VALIDACIJA =====
         if (!preveriVnos()) {
             showError("Podatki niso pravilno izpolnjeni.");
             oznaciNapake();
             return;
         }
 
-        // ===== FORMAT VALIDACIJA =====
         if (!preveriTelefon()
                 || !preveriKartico()
                 || !preveriDokument()
@@ -902,16 +883,13 @@ public class Scene2Controller {
                 return;
             }
         }
-        // ===== LOGIKA (SAMO ČE JE VSE OK) =====
         if (najem) {
             najemPlaciloLetalo = letaloAvto.isSelected();
         }
 
-        // ===== POPUP =====
         showSuccessReservation(sestaviBesedilo());
     }
 
-    // ================= SAVE (TVOJA ORIGINAL LOGIKA) =================
     @FXML
     private void shrani() {
 
@@ -935,7 +913,6 @@ public class Scene2Controller {
         }
     }
 
-    // ================= RESET (TVOJA LOGIKA) =================
     @FXML
     private void ponastavi() {
         ime.clear();
@@ -969,7 +946,7 @@ public class Scene2Controller {
         System.exit(0);
     }
 
-    // ================= HELP =================
+
     @FXML
     private void pomocUp() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

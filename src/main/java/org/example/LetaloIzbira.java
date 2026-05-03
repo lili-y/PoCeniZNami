@@ -320,7 +320,13 @@ public class LetaloIzbira {
         controller.setDatum2(datum2.getText());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        boolean fullScreen = stage.isFullScreen();
         stage.setScene(new Scene(root));
+        stage.setFullScreen(fullScreen);
+
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+
         stage.show();
     }
 }
