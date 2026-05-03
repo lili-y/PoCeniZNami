@@ -20,7 +20,12 @@ import java.util.RandomAccess;
 import java.time.format.DateTimeFormatter;
 
 public class MainController {
-    public int stePotnikov = 0;
+    String datumLetenjaOsebe;
+    private double skupnaCena = 0.0;    // sum of all the money for all passengers! todo: implement the sum to the next window!
+    @FXML private Button izbiraLeta1;
+    @FXML private Button izbiraLeta2;
+
+    private int stePotnikov;
 
     // lokacijaOd.setText(odDrzava.getText());
     //        lokacijaDo.setText(doDrzava.getText());
@@ -31,7 +36,7 @@ public class MainController {
     @FXML private Label lokacijaOd3;
     @FXML private Label lokacijaDo3;
     @FXML private TextField doDrzava;
-    @FXML private TextField stePot;
+    @FXML private ComboBox<Integer> stePot;
 
     @FXML private Label cena;
     @FXML private Label cena2;
@@ -69,7 +74,7 @@ public class MainController {
     @FXML private Label fleks3;
     @FXML private CheckBox fleksibilniDatumi;
 
-
+    private String datumPrihodaOsebe;
 
     String[] countries = {
             "Albania",
@@ -121,9 +126,9 @@ public class MainController {
             "Vatican City"
     };
 
-
-
     public void initialize() {
+        stePot.getItems().addAll(1,2);
+
         fleks1.setVisible(false);
         fleks2.setVisible(false);
         fleks3.setVisible(false);
@@ -139,6 +144,8 @@ public class MainController {
         casPrihoda.getItems().addAll("Kadar koli", "Zgodaj zjutraj (00:00–06:00)", "Dopoldne (06:00–12:00)", "Popoldne (12:00–18:00)", "Zvečer (18:00–24:00)");
         casPrihoda.getValue();
 
+        odhodDatum.setEditable(false);
+        prihodDatum.setEditable(false);
         odhodDatum.setPromptText("Prihod " + LocalDate.now());
         prihodDatum.setPromptText("Prihod " + LocalDate.now()); // todo: fix so its +5 days in th efurute
 
@@ -146,7 +153,7 @@ public class MainController {
         tipLeta.getItems().addAll("Povratna vozovnica", "Enosmerna");
         tipLeta.getSelectionModel().selectFirst();
 
-        razredVsebina.getItems().setAll("Ekonomski razred", "Premium ekonomski razred", "Poslovni razred", "Prvi razred");
+        razredVsebina.getItems().setAll("Ekonomski razred", "Poslovni razred", "Prvi razred");
         razredVsebina.getValue();
 
         sortiraj.getItems().addAll("Najboljši let", "Najcenejši let", "Najhitrejši let");
@@ -202,7 +209,7 @@ public class MainController {
         cas1.setText("13h 25");
         cas2.setText("13h 25");
 
-        cena.setText("1,145 €");
+        cena.setText("1145 €");
         cena2.setText("570 €");
     }
 
@@ -215,7 +222,7 @@ public class MainController {
         cas1.setText("15h 25");
         cas2.setText("16h 30");
 
-        cena.setText("1,275 €");
+        cena.setText("1275 €");
         cena2.setText("640 €");
     }
 
@@ -278,15 +285,11 @@ public class MainController {
 
     @FXML
     private void letalo() {
-        boolean r = true;
-        try {
-            stePotnikov = Integer.parseInt(stePot.getText());
+        if(stePot.getValue() != null) {
+            stePotnikov = stePot.getValue();
         }
-        catch (NumberFormatException e) {
-            r = false;
-            iskanjeLeta.setVisible(false);
-        }
-        if(r && !odDrzava.getText().isEmpty() && !doDrzava.getText().isEmpty() && !stePot.getText().isEmpty() && odhodDatum.getValue() != null && prihodDatum.getValue() != null) {
+
+        if(razredVsebina.getValue() != null && !odDrzava.getText().isEmpty() && !doDrzava.getText().isEmpty() && stePot.getValue() != null && odhodDatum.getValue() != null && prihodDatum.getValue() != null) {
             iskanjeLeta.setVisible(true);
             izbraniLet();
             lokacijaOd.setText(odDrzava.getText().toUpperCase());
@@ -295,12 +298,12 @@ public class MainController {
             lokacijaDo2.setText(doDrzava.getText().toUpperCase());
             lokacijaOd3.setText(odDrzava.getText().toUpperCase());
             lokacijaDo3.setText(doDrzava.getText().toUpperCase());
-
-            stePotnikov = Integer.parseInt(stePot.toString());
         }
     }
 
-
+    public int getStePotnikov() {
+        return stePotnikov;
+    }
 
     @FXML
     private void fleksibilniRes() {
@@ -325,8 +328,12 @@ public class MainController {
             fleks2.setText(prihodPlus10.format(formatter));
 
             fleks3.setText(odhodPlus10.toString());
+
+            datumLetenjaOsebe = odhodPlus10.format(formatter);
         }
         else {
+            // datumLetenjaOsebe = odhodDatum.toString();
+
             fleks1.setVisible(false);
             fleks2.setVisible(false);
             fleks3.setVisible(false);
@@ -364,26 +371,65 @@ public class MainController {
             oneWay.setVisible(true);
         }
     }
-
     @FXML
     private void izbiraLeta(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/letalo.fxml")));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Button clicked = (Button) event.getSource();
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        switch (clicked.getId()) {
+            case "izbiraLeta1":
+                skupnaCena = Integer.parseInt(cena.getText().split(" ")[0]);
+                if(razredVsebina.getValue().equals("Poslovni razred")) {
+                    skupnaCena += 367;
+                }
+                if(razredVsebina.getValue().equals("Prvi razred")) {
+                    skupnaCena += 756;
+                }
+                break;
+            case "izbiraLeta2":
+                skupnaCena = Integer.parseInt(cena2.getText().split(" ")[0]);
+                if(razredVsebina.getValue().equals("Poslovni razred")) {
+                    skupnaCena += 367;
+                }
+                if(razredVsebina.getValue().equals("Prvi razred")) {
+                    skupnaCena += 756;
+                }
+                break;
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/letalo.fxml"));
+        Parent root = loader.load();
+
+        // dobim controller druge scene
+        LetaloIzbira controller = loader.getController();
+
+        // tukaj nastavim vrednost for setting the numebr of people
+        controller.setSteOseb(stePotnikov);
+        controller.setRazredVsebina(razredVsebina.getValue());  // kateri razred leta je izbral user
+        controller.setSkupnaCena(skupnaCena);
+        controller.setOdDrzava(odDrzava.getText());
+        controller.setDoDrzava(doDrzava.getText());
+        controller.setTipLeta(tipLeta.getValue());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // ODHOD
+        if (!fleksibilniDatumi.isSelected()) {
+            datumLetenjaOsebe = odhodDatum.getValue().format(formatter);
+        } else {
+            datumLetenjaOsebe = fleks1.getText();
+        }
+
+        // PRIHOD
+        if (!fleksibilniDatumi.isSelected()) {
+            datumPrihodaOsebe = prihodDatum.getValue().format(formatter);
+        } else {
+            datumPrihodaOsebe = fleks2.getText();
+        }
+        controller.setDatumLetenjaOsebe(datumLetenjaOsebe);
+        controller.setDatumPrihodaOsebe(datumPrihodaOsebe);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
         stage.show();
     }
-
-
-    // odpiranje nove scene za vpis podatkov osebe
-    // @FXML
-    //    private void scena2(ActionEvent event) throws IOException {
-    //        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/scene2.fxml")));
-    //        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    //
-    //        Scene scene = new Scene(root);
-    //        stage.setScene(scene);
-    //        stage.show();
-    //    }
 }

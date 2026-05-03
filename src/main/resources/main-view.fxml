@@ -45,7 +45,7 @@
     </top>
 
     <center>
-        <VBox spacing="15" style="-fx-background-color: linear-gradient(to bottom, #0d3457 0%, #3a6a94 50%, white 100%);">
+        <VBox spacing="15" style="-fx-background-color: linear-gradient(to bottom, #0d3457 0%, #0d3457 45%, #3a6a94 75%, white 100%);">
             <GridPane maxHeight="250.0" prefHeight="200.0" vgap="3.0" VBox.vgrow="ALWAYS">
            <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" />
@@ -93,7 +93,7 @@
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor></DatePicker>
-                     <TextField fx:id="stePot" prefHeight="45.0" promptText="Število potnikov" />
+                     <ComboBox fx:id="stePot" prefHeight="45.0" promptText="Število potnikov" HBox.hgrow="ALWAYS" />
                      <ComboBox fx:id="razredVsebina" prefHeight="45.0" promptText="Razred potovanja">
                         <cursor>
                            <Cursor fx:constant="HAND" />
@@ -277,11 +277,11 @@
                               <children>
                                  <VBox alignment="BOTTOM_LEFT" spacing="7.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                       <Label fx:id="cena" text="1,145 €">
+                                       <Label fx:id="cena" text="1145 €">
                                           <font>
                                              <Font name="System Bold" size="16.0" />
                                           </font></Label>
-                                       <Button mnemonicParsing="false" onAction="#izbiraLeta" prefWidth="146.0" style="-fx-background-color: #0d3457; -fx-text-fill: white;" text="Izberi →">
+                                       <Button fx:id="izbiraLeta1" mnemonicParsing="false" onAction="#izbiraLeta" prefWidth="146.0" style="-fx-background-color: #0d3457; -fx-text-fill: white;" text="Izberi →">
                                           <font>
                                              <Font name="System Bold" size="16.0" />
                                           </font>
@@ -338,7 +338,7 @@
                                              <Font name="System Bold" size="16.0" />
                                           </font>
                                        </Label>
-                                       <Button mnemonicParsing="false" onAction="#izbiraLeta" prefWidth="146.0" style="-fx-background-color: #0d3457; -fx-text-fill: white;" text="Izberi →">
+                                       <Button fx:id="izbiraLeta2" mnemonicParsing="false" onAction="#izbiraLeta" prefWidth="146.0" style="-fx-background-color: #0d3457; -fx-text-fill: white;" text="Izberi →">
                                           <font>
                                              <Font name="System Bold" size="16.0" />
                                           </font>
